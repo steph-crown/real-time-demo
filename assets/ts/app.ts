@@ -26,13 +26,16 @@ import topbar from "../vendor/topbar";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
-  .getAttribute("content");
+  ?.getAttribute("content");
 let liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
 });
 
 const footer = document.getElementById("footer");
-footer.innerHTML = footerText();
+
+if (footer !== null) {
+  footer.innerHTML = footerText();
+}
 
 // Show progress bar on live navigation and form submits
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
@@ -46,4 +49,11 @@ liveSocket.connect();
 // >> liveSocket.enableDebug()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
+
 window.liveSocket = liveSocket;
+
+declare global {
+  interface Window {
+    liveSocket: LiveSocket;
+  }
+}
