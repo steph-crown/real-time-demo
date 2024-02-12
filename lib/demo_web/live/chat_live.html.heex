@@ -1,0 +1,12 @@
+<div>
+  <h1>Chat Messages</h1>
+  <ul>
+    <%= for message <- @messages do %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+  <form phx-submit="add-message">
+    <input type="text" name="message" placeholder="Type a message..." />
+    <button type="submit">Add</button>
+  </form>
+</div>
