@@ -18,6 +18,9 @@ defmodule DemoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    # new route.
+    get "/chats", ChatController, :index
   end
 
   # Other scopes may use custom stacks.
