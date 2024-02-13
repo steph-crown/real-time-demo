@@ -18,17 +18,46 @@
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html";
 
+import { ChatProps } from "./Chat";
+import { CustomHooks } from "./app.types";
 import { LiveSocket } from "phoenix_live_view";
 // Establish Phoenix Socket and LiveView configuration.
 import { Socket } from "phoenix";
 import footerText from "./footerText";
+import mount from "./mount";
 import topbar from "../vendor/topbar";
+
+// create the hooks object.
+let Hooks = {} as CustomHooks;
+
+// create the Chat hook.
+Hooks.Chat = {
+  mounted() {
+    this.unmountComponent = mount(this.el.id, this.getProps());
+  },
+
+  destroyed() {
+    if (!this.unmountComponent) {
+      console.error("Greeter unmountComponent not set");
+      return;
+    }
+
+    this.unmountComponent();
+  },
+
+  getProps(): ChatProps {
+    return { messages: [] };
+  },
+};
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   ?.getAttribute("content");
 let liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
+
+  // add the hooks object to the LiveSocket configuration.
+  hooks: Hooks,
 });
 
 const footer = document.getElementById("footer");
