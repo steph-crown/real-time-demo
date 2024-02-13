@@ -10,7 +10,7 @@ defmodule DemoWeb.ChatSocket do
   # Uncomment the following line to define a "room:*" topic
   # pointing to the `DemoWeb.RoomChannel`:
   #
-  # channel "room:*", DemoWeb.RoomChannel
+  channel "room:*", DemoWeb.RoomChannel
   #
   # To create a channel file, use the mix task:
   #
@@ -18,7 +18,6 @@ defmodule DemoWeb.ChatSocket do
   #
   # See the [`Channels guide`](https://hexdocs.pm/phoenix/channels.html)
   # for further details.
-
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
