@@ -46,7 +46,7 @@ Hooks.Chat = {
   },
 
   getProps(): ChatProps {
-    return { messages: [] };
+    return { messages: ["Hello world", "It's me."] };
   },
 };
 
