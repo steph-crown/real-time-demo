@@ -17,7 +17,8 @@ const Chat: FC<ChatProps> = ({ messages, addMessage }) => {
     <div>
       <h1>Chat Messages</h1>
       <ul>
-        {messages.map((message, index) => (
+        {/* optional chain to prevent errors if `messages` is `null` */}
+        {messages?.map((message, index) => (
           <li key={index}>{message}</li>
         ))}
       </ul>

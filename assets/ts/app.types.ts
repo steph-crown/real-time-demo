@@ -4,6 +4,7 @@ export interface CustomHooks {
   Chat: {
     mounted(): void;
     destroyed(): void;
-    getProps(): ChatProps;
+    addMessage(message: string): void;
+    getProps(messages: string[]): ChatProps;
   };
 }

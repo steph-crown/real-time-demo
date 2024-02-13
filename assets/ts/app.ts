@@ -33,6 +33,10 @@ let Hooks = {} as CustomHooks;
 // create the Chat hook.
 Hooks.Chat = {
   mounted() {
+    this.handleEvent("client.add-message", ({ messages }) => {
+      mount(this.el.id, this.getProps(messages));
+    });
+
     this.unmountComponent = mount(this.el.id, this.getProps());
   },
 
@@ -45,12 +49,14 @@ Hooks.Chat = {
     this.unmountComponent();
   },
 
-  getProps(): ChatProps {
+  addMessage(message: string) {
+    this.pushEventTo(this.el, "add-message", { message });
+  },
+
+  getProps(messages: string[]): ChatProps {
     return {
-      messages: ["Hello world", "It's me."],
-      addMessage: (message) => {
-        this.pushEventTo(this.el, "add-message", { message });
-      },
+      messages: messages,
+      addMessage: this.addMessage.bind(this),
     };
   },
 };
