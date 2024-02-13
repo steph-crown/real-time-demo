@@ -2,7 +2,10 @@ defmodule DemoWeb.ChatLive do
   use Phoenix.LiveView
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, messages: [])}
+    messages = ["Initial Message", "Message before initial"]
+    socket = assign(socket, messages: messages)
+
+    {:ok, push_event(socket, "client.add-message", %{messages: messages})}
   end
 
   def handle_event("add-message", %{"message" => message}, socket) do
