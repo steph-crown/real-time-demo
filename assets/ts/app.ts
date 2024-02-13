@@ -49,7 +49,7 @@ Hooks.Chat = {
     return {
       messages: ["Hello world", "It's me."],
       addMessage: (message) => {
-        alert("Message is: " + message);
+        this.pushEventTo(this.el, "add-message", { message });
       },
     };
   },

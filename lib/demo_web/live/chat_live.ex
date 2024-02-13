@@ -6,7 +6,8 @@ defmodule DemoWeb.ChatLive do
   end
 
   def handle_event("add-message", %{"message" => message}, socket) do
-    IO.inspect(message)
-    {:noreply, assign(socket, messages: [message | socket.assigns.messages])}
+    socket = assign(socket, messages: [message | socket.assigns.messages])
+
+    {:noreply, push_event(socket, "client.add-message", %{messages: socket.assigns.messages})}
   end
 end
