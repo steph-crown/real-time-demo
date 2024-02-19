@@ -17,6 +17,7 @@
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html";
+import "./chat_socket";
 
 import { ChatProps } from "./Chat";
 import { CustomHooks } from "./app.types";

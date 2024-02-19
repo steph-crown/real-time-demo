@@ -13,7 +13,7 @@ defmodule DemoWeb.Endpoint do
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
-  socket "/socket", HelloWeb.ChatSocket,
+  socket "/socket", DemoWeb.ChatSocket,
     websocket: true,
     longpoll: false
 
