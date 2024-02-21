@@ -10,11 +10,35 @@ defmodule DemoWeb.RoomChannel do
     end
   end
 
+  def handle_in("ping:shutdown", _payload, socket) do
+    {:stop, :shutdown, {:msg, "Shut down"}, socket}
+  end
+
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   @impl true
+  # Handle messages with payload pattern {"type": "basic"}
+  def handle_in("ping", %{"type" => "basic"} = payload, socket) do
+    {:reply,
+     {:ok,
+      %{
+        text: "Handling basic ping",
+        payload: payload
+      }}, socket}
+  end
+
+  # Handle messages without payload pattern
   def handle_in("ping", payload, socket) do
-    {:reply, {:ok, payload}, socket}
+    {:reply,
+     {:ok,
+      %{
+        text: "Handling generic ping",
+        payload: payload
+      }}, socket}
+  end
+
+  def handle_in("ping:" <> group, payload, socket) do
+    {:reply, {:ok, %{group: group, payload: payload}}, socket}
   end
 
   # It is also common to receive messages from the client and
