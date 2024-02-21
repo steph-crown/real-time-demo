@@ -27,14 +27,10 @@ defmodule DemoWeb.RoomChannel do
       }}, socket}
   end
 
-  # Handle messages without payload pattern
-  def handle_in("ping", payload, socket) do
-    {:reply,
-     {:ok,
-      %{
-        text: "Handling generic ping",
-        payload: payload
-      }}, socket}
+  def handle_in("ping", %{"msg" => msg}, socket) do
+    push(socket, "new_message", %{msg: msg})
+
+    {:reply, {:ok, :success}, socket}
   end
 
   def handle_in("ping:" <> group, payload, socket) do
