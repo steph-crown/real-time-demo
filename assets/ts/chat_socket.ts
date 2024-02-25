@@ -66,6 +66,32 @@ channel
     console.log("Unable to join", resp);
   });
 
+channel
+  .push("shout", { body: "Hello, world!" }, 2000)
+  .receive("ok", (message) => console.log("created message", message))
+  .receive("error", (reasons) => console.log("create failed", reasons))
+  .receive("timeout", () => console.log("No response, timeout"));
+
+channel
+  .push("ping:message", { body: "Hello, world!" }, 2000)
+  .receive("ok", (message) => console.log("created ping message", message))
+  .receive("error", (reasons) => console.log("ping message failed", reasons))
+  .receive("timeout", () => console.log("No response, timeout"));
+
+channel.on("shout", (payload) => {
+  console.log("shout broadcast received", payload);
+});
+
+let messageChannel = socket.channel("room:message", {});
+messageChannel
+  .join()
+  .receive("ok", (resp) => {
+    console.log("Joined message channel successfully", resp);
+  })
+  .receive("error", (resp) => {
+    console.log("Unable to join message channel", resp);
+  });
+
 export default socket;
 
 declare global {

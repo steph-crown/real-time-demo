@@ -1,10 +1,10 @@
 defmodule DemoWeb.RoomChannel do
   use DemoWeb, :channel
 
-  # intercept ["shout"]
+  intercept ["shout"]
 
   @impl true
-  def join("room:lobby", payload, socket) do
+  def join("room:" <> group, payload, socket) do
     if authorized?(payload) do
       {:ok, socket}
     else
