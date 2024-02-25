@@ -1,6 +1,8 @@
 defmodule DemoWeb.RoomChannel do
   use DemoWeb, :channel
 
+  # intercept ["shout"]
+
   @impl true
   def join("room:lobby", payload, socket) do
     if authorized?(payload) do
@@ -48,5 +50,16 @@ defmodule DemoWeb.RoomChannel do
   # Add authorization logic here as required.
   defp authorized?(_payload) do
     true
+  end
+
+  @impl true
+  def handle_out("shout", payload, socket) do
+    # Preprocess the outgoing message payload here
+    processed_payload = Map.put_new(payload, "content", "Modified payload")
+
+    # push the modified payload
+    push(socket, "shout", processed_payload)
+
+    {:noreply, socket}
   end
 end
