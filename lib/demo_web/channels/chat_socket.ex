@@ -48,6 +48,11 @@ defmodule DemoWeb.ChatSocket do
     end
   end
 
+  def connect(_, _socket, _connect_info) do
+    Logger.error("Failed to connect: no token")
+    :error
+  end
+
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
   #     def id(socket), do: "user_socket:#{socket.assigns.user_id}"
