@@ -10,13 +10,10 @@
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
-
-    <script>
-      window.userToken = "<%= assigns[:user_token] %>";
-      window.userId = "<%= assigns[:user_id] %>";
-    </script>
   </head>
   <body class="bg-white antialiased">
     <%= @inner_content %>
+
+    <input type="hidden" name="userToken" value={"#{assigns[:user_token]}"} />
   </body>
 </html>
